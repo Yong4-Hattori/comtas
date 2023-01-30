@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('body',200);
             $table->foreignId('group_id')->nullable()->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
+            $table->softDeletes();
         });
     }
 

@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\User;
+use Illuminate\Database\Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 
 class TaskController extends Controller
     {
         use SoftDeletes;
-        
         public function index(Task $task)
     {
         $tasks = $task->where('status',0)->get();
@@ -35,28 +37,31 @@ class TaskController extends Controller
             return view('tasks/edit')->with(['task' => $task]);
         }
             
-        public function update(Request $request, Task $task){
-            //dd($request->status);//追記
+        public function update(Request $request, Task $task, User $user){
+            //dd($request->status); //status確認用
             
-              //「編集する」ボタンをおしたとき
+            //「編集する」ボタンをおしたとき
             if ($request->status === null) {
-                $input_post = $request['post'];
-                $post->fill($input_post)->save();
+                $input_task = $request['task'];
+                $task->fill($input_task)->save();
                 
             } else {
                  //「完了」ボタンを押したとき
-              
+                $user = Auth::user();
+                $user_id= $user->id;
+                $identity = User::find($user_id);
+                $identity->point = $task->point;
+                $identity->save();
+                
                   //該当のタスクを検索
                   // = Task::find($id);
                   //モデル->カラム名 = 値 で、データを割り当てる
                   $task->status = 1; //1:完了、0:未完了
                   //データベースに保存
                   $task->save();
-        }
-      
-      
-        //リダイレクト
-        return redirect('/');
+            }
+            //リダイレクト
+            return redirect('/');
             
         }
             

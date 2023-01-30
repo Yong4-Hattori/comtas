@@ -10,7 +10,7 @@
     </head>
     <body>
         <a href='/tasks/create'>タスクを追加する</a>
-        
+        <a href='/tickets'>チケット一覧</a>
         
     <!--タスク一覧-->
         <h3>タスク一覧</h3>
@@ -54,6 +54,7 @@
                         @method('DELETE')
                         <button type="button" onclick="deleteTask({{ $done->id }})">削除</button>
                     </form>
+                 
                 </div>
             @endforeach
         </div>

@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('group_user', function (Blueprint $table) {
             $table->id();
-            
             $table->foreignId('group_id')->nullable()->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -5,12 +5,12 @@
         <form action="/tasks/{{ $task->id }}" method="POST">
             @csrf
             @method('PUT')
-            <div class='title'>
+            <div class='task_title'>
                 <input type='text' name='task[title]' value="{{ $task->title }}">
             <div class='points'>
                 <input type="number" name="task[point]" value="{{ $task->point }}">
             </div>
-            <div class='body'>
+            <div class='task_body'>
                 <input type='text' name='task[body]' value="{{ $task->body }}">
             </div>
             <input type="submit" value="store">

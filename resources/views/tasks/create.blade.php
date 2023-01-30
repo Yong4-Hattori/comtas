@@ -8,7 +8,7 @@
         <h2>タスクを追加する</h2>
         <form action="/tasks" method="POST">
             @csrf
-            <div class="title">
+            <div class="task_title">
                 <input type="text" name="task[title]" placeholder="タイトル"/><br>
                 <input type="number" name="task[point]" placeholder="ポイント 例: 100"/>
             </div>

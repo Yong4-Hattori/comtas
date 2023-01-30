@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
+            $table->string('title',50);
             $table->integer('point');
-            $table->foreignId('group_id')->constrained()->nullable();
+            $table->string('body',200);
+            $table->boolean('status')->default(0);
+            $table->foreignId('group_id')->nullable()->constrained();
             $table->timestamps();
+            $table->softDeletes();
             
         });
     }
