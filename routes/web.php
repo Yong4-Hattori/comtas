@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TimelineController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,13 +27,16 @@ Route::controller(TicketController::class)->middleware(['auth'])->group(function
     Route::post('/tickets', 'store')->name('store');
     Route::get('/tickets/create', 'create')->name('create');
     Route::get('/tickets/{ticket}', 'show')->name('show');
+    Route::get('/tickets/{done}', 'show')->name('showDones'); //使用済の詳細を表示
     Route::put('/tickets/{ticket}', 'update')->name('update');
     Route::delete('/tickets/{ticket}', 'delete')->name('delete');
     Route::get('/tickets/{ticket}/edit', 'edit')->name('edit');
 });
 
-
-
+Route::controller(TimelineController::class)->middleware(['auth'])->group(function(){
+    Route::get('/timelines','index')->name('index');
+    
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

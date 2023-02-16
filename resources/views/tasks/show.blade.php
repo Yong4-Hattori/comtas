@@ -1,12 +1,14 @@
-<!DOCTYPE HTML>
+<!--<!DOCTYPE HTML>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+          <x-app-layout>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>タスク詳細</title>
-        <!-- Fonts -->
+        <!-- Fonts 
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
+    -->
     <body>
             <div class="title"> タイトル：{{ $task->title }} </div>
             <p> ポイント：{{ $task->point }}</p>
@@ -17,4 +19,5 @@
             <a href="/">戻る</a>
         </div>
     </body>
+          </x-app-layout>
 </html>

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
@@ -13,11 +12,14 @@ use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
     {
         use SoftDeletes;
+        
+ 
         public function index(Task $task)
     {
         $tasks = $task->where('status',0)->get();
         $dones = $task->where('status',1)->get();
-        return view('tasks/index')->with(['tasks' => $tasks,'dones'=>$dones]);  
+        $point = $task->point;
+        return view('tasks/index')->with(['tasks' => $tasks,'dones'=>$dones,'point'=>$point]);  
     }
         public function create(){
             return view('tasks/create');
@@ -48,6 +50,7 @@ class TaskController extends Controller
             } else {
                  //「完了」ボタンを押したとき
                 $user = Auth::user();
+                $task->user_id=$user->id;
                 $user_id= $user->id;
                 $identity = User::find($user_id);
                 $identity->point = $task->point;
@@ -59,13 +62,14 @@ class TaskController extends Controller
                   $task->status = 1; //1:完了、0:未完了
                   //データベースに保存
                   $task->save();
+                  dd($task->user_id);
             }
             //リダイレクト
-            return redirect('/');
+            return view('tasks/index')->with(['user'=>$user,'tasks'=>$tasks,'dones'=>$dones,'point'=>$point]);
             
         }
             
-        public function deleteTask(Task $task){
+        public function delete(Task $task){
             $task->delete();
             return redirect('/');
         }

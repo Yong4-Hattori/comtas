@@ -11,7 +11,7 @@
             <div class="ticket_title"> タイトル：{{ $ticket->title }} </div>
             <p> ポイント：{{ $ticket->point }}</p>
             <div class="ticket_body"> 詳細：{{ $ticket->body }}</div>
-            <div class="edit"><a href="/tasks/{{ $ticket->id }}/edit">編集</a></div>
+            <div class="edit"><a href="/tickets/{{ $ticket->id }}/edit">編集</a></div>
 
         <div class="footer">
             <a href="/">戻る</a>

@@ -13,17 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('timelines', function (Blueprint $table) {
             $table->id();
-            $table->string('title',50);
-            $table->integer('point');
-            $table->string('body',200);
-            $table->boolean('status')->default(0);
-            $table->foreignId('group_id')->nullable()->constrained();
-            $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
-            $table->softDeletes();
-            
         });
     }
 
@@ -34,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('timelines');
     }
 };
