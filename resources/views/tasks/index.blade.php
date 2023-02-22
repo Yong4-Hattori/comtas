@@ -10,6 +10,8 @@
     </head>
     -->
     
+    
+    
     <x-app-layout>
     <p>ようこそ、{{ Auth::user()->name }}さん。</p><br>
     <body>
@@ -19,28 +21,28 @@
         <br>
         
     <!--タスク一覧-->
-        <h3 class="text-xl">タスク一覧</h3>
+        <div class="text-xl flex justify-center items-center">タスク一覧<br><br></div>
         <div class='tasks'>
             @foreach ($tasks as $task)
                 <div class='tasks'>
                     <h2 class='title'>
-                    <a href="/tasks/{{ $task->id }}">{{ $task->title }}</a>
+                    <div class="flex justify-center items-center"> <a href="/tasks/{{ $task->id }}">{{ $task->title }}</a></div>
                     </h2>
-                    <p class='body'>{{ $task->body }}</p>
-                    <p class='point'>{{$task->point}}ポイント</p>
+                    <div class="flex justify-center items-center" > <p class='body '>{{ $task->body }}</p></div>
+                    <div class="flex justify-center items-center" > <p class='point'>{{$task->point}}ポイント</p></div>
                     <!--タスクを完了する-->
-                    <form action="/tasks/{{ $task->id }}" id="form_{{ $task->id }}/updateStatus" method="post">
+                    <div class="flex justify-center items-center" > <form action="/tasks/{{ $task->id }}" id="form_{{ $task->id }}/updateStatus" method="post"></div>
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="status" value="{{$task->status}}">
-                     <button type="submit">完了</button>
-                     </form>
+                    <div class="flex justify-center items-center" ><button type="submit">完了</button></div>
+                    </form>
                      
                     <!--タスクを削除する-->
-                    <form action="/tasks/{{ $task->id }}" id="form_{{ $task->id }}" method="post">
+                    <div class="flex justify-center items-center" > <form action="/tasks/{{ $task->id }}" id="form_{{ $task->id }}" method="post"></div>
                         @csrf
                         @method('DELETE')
-                        <button type="button" onclick="deleteTask({{ $task->id }})">削除</button>
+                        <div class="flex justify-center items-center" ><button type="button" onclick="deleteTask({{ $task->id }})">削除</button></div>
                     </form>
                 </div>
                 <br>
@@ -49,17 +51,17 @@
         
     <!--完了タスク一覧-->
         <div class='dones'>
-            <h3 class="text-xl">完了タスク一覧</h3>
+            <div class="text-xl flex justify-center items-center">完了タスク一覧</div><br>
             @foreach ($dones as $done)
                 <div class='dones'>
                     <h2 class='title'>
-                    <a href="/tasks/{{ $done->id }}">{{ $done->title }}</a>
+                    <div class="flex justify-center items-center"> <a href="/tasks/{{ $done->id }}">{{ $done->title }}</a></div>
                     </h2>
-                    <p class='body'>{{ $done->body }}</p>
-                    <form action="/tasks/{{ $done->id }}" id="form_{{ $done->id }}" method="post">
+                    <div class="flex justify-center items-center"> <p class='body'>{{ $done->body }}</p></div>
+                    <div class="flex justify-center items-center"><form action="/tasks/{{ $done->id }}" id="form_{{ $done->id }}" method="post"></div>
                         @csrf
                         @method('DELETE')
-                        <button type="button" onclick="deleteTask({{ $done->id }})">削除</button>
+                        <div class="flex justify-center items-center"> <button type="button" onclick="deleteTask({{ $done->id }})">削除</button></div>
                     </form>
                  
                 </div>
