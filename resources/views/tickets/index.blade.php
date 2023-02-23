@@ -16,20 +16,16 @@
             
             <div class = 'user_point'>
                 
-            <p> あなたは{{$user_point}}  ポイント所有しています</p><br>
+            <p> あなたは{{$user_point}}  ポイント所有しています。</p><br>
         </div>
         <body>
-            <a href='/'>タスク一覧</a><br>
-            <a href='/tickets/create'>チケットを追加する</a><br>
-            <a href='/timelines'>タイムライン</a><br><br>
-            
             
         <!--チケット一覧-->
-            <h3>チケット一覧</h3>
+            <p class="text-3xl font-bold">チケット一覧</p>
             <div class='tickets'>
                 @foreach ($tickets as $ticket)
                     <div class='tickets'>
-                        <h2 class='ticket_title'>
+                        <h2 class='text-lg font-bold'>
                         <a href="/tickets/{{ $ticket->id }}">{{ $ticket->title }}</a>
                         </h2>
                         <p class='ticket_body'>{{ $ticket->body }}</p>
@@ -40,7 +36,7 @@
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="status" value="{{$ticket->status}}">
-                        <button type="button" onclick="useTicket({{ $ticket->point}},{{$user->point}},{{$ticket->id }})">使用する</button>
+                        <button class='px-2 py-1 text-blue-500 border border-blue-500 font-semibold rounded hover:bg-blue-100' type="button" onclick="useTicket({{ $ticket->point}},{{$user->point}},{{$ticket->id }})">使用する</button>
                         
                          </form>
                          
@@ -48,30 +44,31 @@
                         <form action="/tickets/{{ $ticket->id }}" id="form_{{ $ticket->id }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button class='px-2 py-1 text-blue-500 border border-blue-500 font-semibold rounded hover:bg-blue-100' type="button" onclick="deleteTicket({{ $ticket->id }})">削除</button>
+                            <button class='px-2 py-1 text-gray-500 border border-gray-500 font-semibold rounded hover:bg-gray-100' type="button" onclick="deleteTicket({{ $ticket->id }})">削除</button>
                         </form>
                     </div>
                     <br>
                 @endforeach
             </div>
+            <br>
             
         <!--使用済チケット一覧-->
             <div class='dones'>
-                <h3>使用済みチケット一覧</h3>
+                <p class='text-3xl font-bold'>使用済みチケット一覧</h3>
                 @foreach ($dones as $done)
                     <div class='dones'>
-                        <h2 class='ticket_title'>{{ $done->title }}</h2>
+                        <h2 class='text-lg font-bold'>{{ $done->title }}</h2>
                         </h2>
-                        <p class='ticket_body'>{{ $done->body }}</p>
+                        <p class='texl-base'>{{ $done->body }}</p>
                         <form action="/tickets/{{ $done->id }}" id="form_{{ $done->id }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button class='px-2 py-1 text-blue-500 border border-blue-500 font-semibold rounded hover:bg-blue-100' type="button" onclick="deleteTicket({{ $done->id }})">削除</button>
+                            <button class='px-2 py-1 text-gray-500 border border-gray-500 font-semibold rounded hover:bg-gray-100' type="button" onclick="deleteTicket({{ $done->id }})">削除</button>
                         </form>
                     </div>
                     <br>
                 @endforeach
-            </div>
+            </div><br>
         </x-app-layout>
             
         </body>
