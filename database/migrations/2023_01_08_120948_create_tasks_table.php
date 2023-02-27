@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title',50);
             $table->integer('point');
             $table->string('body',200);
-            $table->boolean('status')->default(0);
+            $table->tinyinteger('status')->default(0);
             $table->foreignId('group_id')->nullable()->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
