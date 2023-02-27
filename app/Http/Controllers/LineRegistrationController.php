@@ -51,6 +51,7 @@ class LineRegistrationController extends Controller
                     $line_user->mode = $mode;
                     $line_user->name = $display_name;
                     $line_user->save();
+                    dd($line_user);
                     
                     
                     //フォローしてくれたユーザーに返信する
