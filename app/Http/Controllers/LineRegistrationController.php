@@ -20,7 +20,7 @@ class LineRegistrationController extends Controller
         $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
  
         // LINEユーザーID指定
-        $userId = "tty0oro";
+        $userId = config('services.line.line_id');
  
         // メッセージ設定
         $message = "こんにちは！";
