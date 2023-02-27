@@ -34,8 +34,8 @@ class LineRegistrationController extends Controller
     //文字列を送られてきたときの処理
     //追加された瞬間、追加した人のLINEIDをLineUserに保存する処理をつける
     public function webhook(Request $request) {
-        
- 
+            $http_client = new CurlHTTPClient(config('services.line.channel_token'));    
+            $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
             $events = $bot->parseEventRequest($request_body, $signature);
             foreach ($events as $event) {
                 $userId = $event->getEventSourceId();
@@ -44,16 +44,15 @@ class LineRegistrationController extends Controller
             // フォローイベントの場合
                 if ($event instanceof FollowEvent) {
                     // line_usersテーブルへ登録する
-                    return 'ok';
-                    
-                    /*$mode = $event->getMode();
+    
+                    $mode = $event->getMode();
                     $profile = $bot->getProfile($userId)->getJSONDecodedBody();
                     $display_name = $profile['displayName'];
                     $line_user = LineUser::firstOrNew(['line_id' => $userId]);
                     $line_user->mode = $mode;
                     $line_user->name = $display_name;
                     $line_user->save();
-                    dd($line_user); //結果：実行されなかった*/
+                    dd($line_user); //結果：実行されなかった
                     
                     
                     //フォローしてくれたユーザーに返信する
