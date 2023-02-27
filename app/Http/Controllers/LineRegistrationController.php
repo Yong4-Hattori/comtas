@@ -20,11 +20,10 @@ class LineRegistrationController extends Controller
         $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
  
         // LINEユーザーID指定
-        $userId = config('services.line.line_id');
- 
+        $test = LineUser::first();
+        $userId = $test['line_id'];
         // メッセージ設定
         $message = "こんにちは！";
- 
         // メッセージ送信
         $textMessageBuilder = new TextMessageBuilder($message);
         $response = $bot->pushMessage($userId, $textMessageBuilder);
@@ -53,6 +52,23 @@ class LineRegistrationController extends Controller
  
             // ユーザーにメッセージを返す
             $reply=$bot->replyText($reply_token, $reply_message);
+            
+            // LINEのユーザーIDをuserIdに代入
+            $userId=$request['events'][0]['source']['userId'];
+
+            // userIdがあるユーザーを検索
+            $user=LineUser::where('line_id', $userId)->first();
+
+            // もし見つからない場合は、データベースに保存
+            if($user==NULL) {
+                $profile=$bot->getProfile($userId)->getJSONDecodedBody();
+
+                $user=new LineUser();
+                $user->mode='active';
+                $user->line_id=$userId;
+                $user->name=$profile['displayName'];
+                $user->save();
+            }
             
             return 'ok';
         }
