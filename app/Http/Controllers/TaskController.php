@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Database\Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
+ use LINE\LINEBot;
 
 
 class TaskController extends Controller
@@ -74,6 +76,7 @@ class TaskController extends Controller
             return redirect('/');
         }
         
-    
+
+        
         
 }

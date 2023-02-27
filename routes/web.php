@@ -5,6 +5,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TimelineController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LineRegistrationController;
 
 
 
@@ -36,6 +37,7 @@ Route::controller(TicketController::class)->middleware(['auth'])->group(function
 Route::controller(TimelineController::class)->middleware(['auth'])->group(function(){
     Route::get('/timelines','index')->name('index');
     
+    
 });
 
 Route::middleware('auth')->group(function () {
@@ -43,5 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// LINE メッセージ受信
+Route::post('/line/webhook', [LineRegistrationController::class,'webhook'])->name('line.webhook');
+// LINE メッセージ送信用
+Route::get('/line/message', [LineRegistrationController::class,'message']);
+
 
 require __DIR__.'/auth.php';

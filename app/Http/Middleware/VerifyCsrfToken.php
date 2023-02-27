@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        //line用CSRF例外処理
+        'line/registration/webhook',
     ];
 }

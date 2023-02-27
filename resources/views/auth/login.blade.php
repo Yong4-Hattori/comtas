@@ -23,7 +23,9 @@
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
-
+        <!-- Register -->
+        <a href="/register">登録</a>
+        
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
