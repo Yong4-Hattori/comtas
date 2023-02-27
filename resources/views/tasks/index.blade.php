@@ -16,6 +16,7 @@
     <!--タスク一覧-->
         <p class="text-3xl font-bold">タスク一覧</p><br>
         <div class='tasks'>
+            <a href = '/tasks/create'>タスクを追加する</a>
             @foreach ($tasks as $task)
                 <div class='tasks'>
                     <h2 class='title'>
