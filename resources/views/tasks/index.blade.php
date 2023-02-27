@@ -28,7 +28,7 @@
                     <form action="/tasks/{{ $task->id }}" id="form_{{ $task->id }}/updateStatus" method="post">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="status" value="{{$task->status}}">
+                        <input type="text" name="status" value="{{$task->status}}">
                         <button class="px-2 py-1 text-blue-500 border border-blue-500 font-semibold rounded hover:bg-blue-100" type="submit">完了</button>
                 
                     </form>
