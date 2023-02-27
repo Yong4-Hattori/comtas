@@ -33,7 +33,7 @@ class LineRegistrationController extends Controller
     
     public function webhook(Request $request) {
         // LINEから送られた内容を$inputsに代入
-       /* $inputs=$request->all();
+       $inputs=$request->all();
  
         // そこからtypeをとりだし、$message_typeに代入
         $message_type=$inputs['events'][0]['type'];
@@ -55,8 +55,7 @@ class LineRegistrationController extends Controller
             $reply=$bot->replyText($reply_token, $reply_message);
             
             return 'ok';
-        }*/
-        return 'ok';
+        }
     }
     
 }
