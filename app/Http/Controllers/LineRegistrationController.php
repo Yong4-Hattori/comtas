@@ -40,12 +40,12 @@ class LineRegistrationController extends Controller
             foreach ($events as $event) {
                 $userId = $event->getEventSourceId();
                 $reply_token = $event->getReplyToken();
-                
+    
             // フォローイベントの場合
                 if ($event instanceof FollowEvent) {
                     // line_usersテーブルへ登録する
                     $mode = $event->getMode();
-                    $profile = $bot->getProfile($line_id)->getJSONDecodedBody();
+                    $profile = $bot->getProfile($userId)->getJSONDecodedBody();
                     $display_name = $profile['displayName'];
                     $line_user = LineUser::firstOrNew(['line_id' => $userId]);
                     $line_user->mode = $mode;
