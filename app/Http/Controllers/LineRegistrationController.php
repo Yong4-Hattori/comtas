@@ -44,14 +44,16 @@ class LineRegistrationController extends Controller
             // フォローイベントの場合
                 if ($event instanceof FollowEvent) {
                     // line_usersテーブルへ登録する
-                    $mode = $event->getMode();
+                    return 'ok';
+                    
+                    /*$mode = $event->getMode();
                     $profile = $bot->getProfile($userId)->getJSONDecodedBody();
                     $display_name = $profile['displayName'];
                     $line_user = LineUser::firstOrNew(['line_id' => $userId]);
                     $line_user->mode = $mode;
                     $line_user->name = $display_name;
                     $line_user->save();
-                    dd($line_user);
+                    dd($line_user); //結果：実行されなかった*/
                     
                     
                     //フォローしてくれたユーザーに返信する
