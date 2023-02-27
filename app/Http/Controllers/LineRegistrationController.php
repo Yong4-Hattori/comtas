@@ -35,7 +35,7 @@ class LineRegistrationController extends Controller
     //追加された瞬間、追加した人のLINEIDをLineUserに保存する処理をつける
     public function webhook(Request $request) {
         
-      try {
+ 
             $events = $bot->parseEventRequest($request_body, $signature);
             foreach ($events as $event) {
                 $userId = $event->getEventSourceId();
@@ -69,7 +69,7 @@ class LineRegistrationController extends Controller
                         }
                     }
                 }
-            }     
+                 
             
                 
             
