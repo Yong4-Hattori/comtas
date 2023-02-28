@@ -8,23 +8,27 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
 use App\Models\User;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use App\Models\Task;
+
 
 
 class LineRegistrationController extends Controller
 {
     // メッセージ送信用
- public function message() {
+ public function message(Task $task) {
  
         // LINEBOTSDKの設定
         $http_client = new CurlHTTPClient(config('services.line.channel_token'));
         $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
  
         //追加している人全員に送る処理：調べる
-        //fo
+        //for文で回すのもあり
         $line_user = LineUser::first();
         $userId = $line_user['line_id'];
         // メッセージ設定
-        $message = "こんにちは！";
+        $task_title = $task->title;
+        $message =  "$task_titleが完了されました!";
+        
         // メッセージ送信
         $textMessageBuilder = new TextMessageBuilder($message);
         $response = $bot->pushMessage($userId, $textMessageBuilder);
@@ -37,30 +41,13 @@ class LineRegistrationController extends Controller
             $http_client = new CurlHTTPClient(config('services.line.channel_token'));    
             $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
             $events = $bot->parseEventRequest($request_body, $signature);
+            
             foreach ($events as $event) {
                 $userId = $event->getEventSourceId();
                 $reply_token = $event->getReplyToken();
     
-            // フォローイベントの場合
-                if ($event instanceof FollowEvent) {
-                    // line_usersテーブルへ登録する
-    
-                    $mode = $event->getMode();
-                    $profile = $bot->getProfile($userId)->getJSONDecodedBody();
-                    $display_name = $profile['displayName'];
-                    $line_user = LineUser::firstOrNew(['line_id' => $userId]);
-                    $line_user->mode = $mode;
-                    $line_user->name = $display_name;
-                    $line_user->save();
-                    dd($line_user); //結果：実行されなかった
-                    
-                    
-                    //フォローしてくれたユーザーに返信する
-                    $text_message = new TextMessageBuilder('フォローありがとうございます。');
-                    $bot->replyMessage($reply_token, $text_message);
-                    
                 // フォロー解除イベントの場合
-                } else if ($event instanceof UnfollowEvent) {
+                if ($event instanceof UnfollowEvent) {
                     // line_usersテーブルからデータを削除する
                     $line_user = LineUser::findByLineId($userId);
                     if (!empty($line_user) && $line_user instanceof LineUser) {
@@ -68,11 +55,7 @@ class LineRegistrationController extends Controller
                         }
                     }
                 }
-                 
-            
-                
-            
-        
+
         // LINEから送られた内容を$inputsに代入
         $inputs=$request->all();
  
@@ -101,10 +84,7 @@ class LineRegistrationController extends Controller
             // userIdがあるユーザーを検索
             $user=LineUser::where('line_id', $userId)->first();
 
-           /* // もし見つからない場合は、データベースに保存
-            //ここで初めてLINEidが保存される
-            //webhookを実行しないとこちらから特定してメッセージを送れない
-            //友達追加した瞬間にIDを保存する処理をしないといけない
+            // もし見つからない場合は、データベースに保存
             if($user==NULL) {
                 $profile=$bot->getProfile($userId)->getJSONDecodedBody();
 
@@ -113,7 +93,7 @@ class LineRegistrationController extends Controller
                 $user->line_id=$userId;
                 $user->name=$profile['displayName'];
                 $user->save();
-            }*/
+            }
             
             return 'ok';
         }
