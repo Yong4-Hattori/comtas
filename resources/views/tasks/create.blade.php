@@ -11,6 +11,7 @@
             <div class="task_title">
                 <input type="text" name="task[title]" placeholder="タイトル"/><br>
                 <input type="number" name="task[point]" placeholder="ポイント 例: 100"/>
+                <input type="hidden" name="task[user_id]" value="{{Auth::id()}}" />
             </div>
             <div class="task_body">
                 <textarea name="task[body]" placeholder="詳細"></textarea>

@@ -15,5 +15,16 @@ class Task extends Model
     'title',
     'point',
     'body',
-];
+    'user_id',
+    'add_user',
+    'done_user',
+    ];
+    
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+    
+    public function abc(){
+        return $this::with('user')->orderBy('updated_at', 'DESC')->get();
+    }
 }

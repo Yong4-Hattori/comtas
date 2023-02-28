@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('task_users', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->integer('user_id')->onDelete('cascade');
+            $table->integer('task_id')->onDelete('cascade');
+            $table->string('title');
             $table->timestamps();
-            $table->string('title',50);
-            $table->string('body',200);
-            $table->foreignId('group_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('task_users');
     }
 };

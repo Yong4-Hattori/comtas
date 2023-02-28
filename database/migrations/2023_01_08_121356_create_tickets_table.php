@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('point');
             $table->string('body',200);
             $table->boolean('status')->default(0);
-            $table->foreignId('group_id')->nullable()->constrained();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('group_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
             

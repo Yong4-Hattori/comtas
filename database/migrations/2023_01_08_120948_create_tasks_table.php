@@ -19,8 +19,14 @@ return new class extends Migration
             $table->integer('point');
             $table->string('body',200);
             $table->tinyinteger('status')->default(0);
-            $table->foreignId('group_id')->nullable()->constrained();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('group_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            
+            //応急処置
+            //ユーザー名変更された時反映できなくなる
+            //今後の改善点:リレーションでIDから名前を引っ張ってこれるようにする
+            $table->string('add_user');
+            $table->string('done_user')->nullable();
             $table->timestamps();
             $table->softDeletes();
             

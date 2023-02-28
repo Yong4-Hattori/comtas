@@ -46,17 +46,17 @@ class LineRegistrationController extends Controller
                 $userId = $event->getEventSourceId();
                 $reply_token = $event->getReplyToken();
     
-                // フォロー解除イベントの場合
+                /*// フォロー解除イベントの場合：動作しているかわからない、必要なければ消したい
                 if ($event instanceof UnfollowEvent) {
                     // line_usersテーブルからデータを削除する
                     $line_user = LineUser::findByLineId($userId);
                     if (!empty($line_user) && $line_user instanceof LineUser) {
                         $line_user->delete();
                         }
-                    }
+                    }*/
                 }
 
-        // LINEから送られた内容を$inputsに代入
+         // LINEから送られた内容を$inputsに代入
         $inputs=$request->all();
  
         // そこからtypeをとりだし、$message_typeに代入
@@ -72,11 +72,12 @@ class LineRegistrationController extends Controller
             $http_client = new CurlHTTPClient(config('services.line.channel_token'));
             $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
  
+            /*
             // 送信するメッセージの設定
             $reply_message='メッセージありがとうございます';
  
             // ユーザーにメッセージを返す
-            $reply=$bot->replyText($reply_token, $reply_message);
+            $reply=$bot->replyText($reply_token, $reply_message);*/
             
             // 送り主のLINEのユーザーIDをuserIdに代入、取得
             $userId=$request['events'][0]['source']['userId'];

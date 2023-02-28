@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\TaskUser;
 use Illuminate\Database\Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,11 @@ class TaskController extends Controller
         use SoftDeletes;
         
  
-        public function index(Task $task)
+        public function index(Task $task,User $user)
     {
         $tasks = $task->where('status',0)->get();
         $dones = $task->where('status',1)->get();
+        
         $point = $task->point;
         return view('tasks/index')->with(['tasks' => $tasks,'dones'=>$dones,'point'=>$point]);  
     }
@@ -32,7 +34,10 @@ class TaskController extends Controller
         }
         
         public function store(Request $request, Task $task){
+            
             $input = $request['task'];
+            $user = Auth::user();
+            $input['add_user']=$user->name;
             $task->fill($input)->save();
             return redirect('/');
             
@@ -41,7 +46,7 @@ class TaskController extends Controller
             return view('tasks/edit')->with(['task' => $task]);
         }
             
-        public function update(Request $request, Task $task, User $user){
+        public function update(Request $request, Task $task, User $user,TaskUser $task_user){
             //dd($request->status); //status確認用
             
             //「編集する」ボタンをおしたとき
@@ -57,17 +62,20 @@ class TaskController extends Controller
                 $identity = User::find($user_id);
                 $identity->point = $task->point;
                 $identity->save();
-                
-                  //該当のタスクを検索
-                  // = Task::find($id);
-                  //モデル->カラム名 = 値 で、データを割り当てる
-                  $task->status = 1; //1:完了、0:未完了
-                  //データベースに保存
-                  $task->save();
+                $task->done_user = $user->name;
+                 // = Task::find($id);
+                 //モデル->カラム名 = 値 で、データを割り当てる
+                 $task->status = 1; //1:完了、0:未完了
+    
+                 //データベースに保存
+                 $task->save();
+
+                 
             }
             $tasks = $task->where('status',0)->get();
             $dones = $task->where('status',1)->get();
             $point = $task->point;
+            
             
             return view('tasks/index')->with(['user'=>$user,'tasks'=>$tasks,'dones'=>$dones,'point'=>$point]);
             

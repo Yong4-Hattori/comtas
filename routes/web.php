@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TimelineController;
+use App\Http\Controllers\TaskUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LineRegistrationController;
 

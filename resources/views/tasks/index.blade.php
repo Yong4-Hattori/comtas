@@ -58,7 +58,7 @@
                         @csrf
                         @method('DELETE')
                         <button class='px-2 py-1 text-blue-500 border border-blue-500 font-semibold rounded hover:bg-blue-100' type="button" onclick="deleteTicket({{ $done->id }})">削除</button>
-                        
+                    
                     </form>
                  
                 </div>
