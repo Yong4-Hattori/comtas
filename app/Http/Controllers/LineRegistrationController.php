@@ -72,12 +72,12 @@ class LineRegistrationController extends Controller
             $http_client = new CurlHTTPClient(config('services.line.channel_token'));
             $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
  
-            /*
+            
             // 送信するメッセージの設定
             $reply_message='メッセージありがとうございます';
  
             // ユーザーにメッセージを返す
-            $reply=$bot->replyText($reply_token, $reply_message);*/
+            $reply=$bot->replyText($reply_token, $reply_message);
             
             // 送り主のLINEのユーザーIDをuserIdに代入、取得
             $userId=$request['events'][0]['source']['userId'];
