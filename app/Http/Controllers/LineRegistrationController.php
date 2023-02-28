@@ -20,23 +20,25 @@ class LineRegistrationController extends Controller
         // LINEBOTSDKの設定
         $http_client = new CurlHTTPClient(config('services.line.channel_token'));
         $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
- 
-        //追加している人全員に送る処理：調べる
-        //for文で回すのもあり
-        $line_user = LineUser::first();
-        $userId = $line_user['line_id'];
-        // メッセージ設定
-        $task_title = $task->title;
-        $message =  "$task_title が完了されました!";
         
-        // メッセージ送信
+        $task_title = $task->title;
+        
+        //メッセージ設定
+        $message =  "$task_title が完了されました!";
         $textMessageBuilder = new TextMessageBuilder($message);
-        $response = $bot->pushMessage($userId, $textMessageBuilder);
+        
+        //追加している人全員に送る処理
+        $line_users = LineUser::all();
+        foreach($line_users as $line_user) {
+            $userId = $line_user['line_id'];
+
+            // メッセージ送信
+            $response = $bot->pushMessage($userId, $textMessageBuilder);
+        }
  
     }
     
     //文字列を送られてきたときの処理
-    //追加された瞬間、追加した人のLINEIDをLineUserに保存する処理をつける
     public function webhook(Request $request) {
             /*$http_client = new CurlHTTPClient(config('services.line.channel_token'));    
             $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
