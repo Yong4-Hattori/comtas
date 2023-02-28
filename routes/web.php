@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // LINE メッセージ受信
-Route::post('/line/webhook', [LineRegistrationController::class,'webhook'])->name('line.webhook');
+Route::post('/line/webhook{task}', [LineRegistrationController::class,'webhook'])->name('line.webhook');
 // LINE メッセージ送信用
 Route::get('/line/message/{task}', [LineRegistrationController::class,'message']);
 

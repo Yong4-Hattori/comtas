@@ -27,7 +27,7 @@ class LineRegistrationController extends Controller
         $userId = $line_user['line_id'];
         // メッセージ設定
         $task_title = $task->title;
-        $message =  "$task_titleが完了されました!";
+        $message =  "$task_title が完了されました!";
         
         // メッセージ送信
         $textMessageBuilder = new TextMessageBuilder($message);
