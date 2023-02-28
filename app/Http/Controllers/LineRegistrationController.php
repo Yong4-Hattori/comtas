@@ -38,7 +38,7 @@ class LineRegistrationController extends Controller
     //文字列を送られてきたときの処理
     //追加された瞬間、追加した人のLINEIDをLineUserに保存する処理をつける
     public function webhook(Request $request) {
-            $http_client = new CurlHTTPClient(config('services.line.channel_token'));    
+            /*$http_client = new CurlHTTPClient(config('services.line.channel_token'));    
             $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
             $events = $bot->parseEventRequest($request_body, $signature);
             
@@ -46,15 +46,15 @@ class LineRegistrationController extends Controller
                 $userId = $event->getEventSourceId();
                 $reply_token = $event->getReplyToken();
     
-                /*// フォロー解除イベントの場合：動作しているかわからない、必要なければ消したい
+                // フォロー解除イベントの場合：動作しているかわからない、必要なければ消したい
                 if ($event instanceof UnfollowEvent) {
                     // line_usersテーブルからデータを削除する
                     $line_user = LineUser::findByLineId($userId);
                     if (!empty($line_user) && $line_user instanceof LineUser) {
                         $line_user->delete();
                         }
-                    }*/
-                }
+                    }
+                }*/
 
          // LINEから送られた内容を$inputsに代入
         $inputs=$request->all();
@@ -67,13 +67,11 @@ class LineRegistrationController extends Controller
             
             // replyTokenを取得
             $reply_token=$inputs['events'][0]['replyToken'];
- 
-            // LINEBOTSDKの設定
-            $http_client = new CurlHTTPClient(config('services.line.channel_token'));
+            
+            $http_client = new CurlHTTPClient(config('services.line.channel_token'));    
             $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
  
-            
-            // 送信するメッセージの設定
+             // 送信するメッセージの設定
             $reply_message='メッセージありがとうございます';
  
             // ユーザーにメッセージを返す
