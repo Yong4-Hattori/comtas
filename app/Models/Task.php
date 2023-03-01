@@ -24,7 +24,15 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function abc(){
+    public function saveUser(){
         return $this::with('user')->orderBy('updated_at', 'DESC')->get();
+    }
+    
+    public function rules()
+    {
+        return [
+            'task.title' => 'required|string|max:100',
+            'task.body' => 'required|string|max:500',
+        ];
     }
 }

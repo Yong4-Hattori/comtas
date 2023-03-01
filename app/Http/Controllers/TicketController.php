@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+use App\Http\Requests\TicketRequest; 
 use App\Models\User;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent;
@@ -30,17 +30,19 @@ class TicketController extends Controller
             return view('tickets/show')->with(['ticket'=>$ticket]);
         }
         
-        public function store(Request $request, Ticket $ticket,User $user){
-            //dd(チケットの中身)で調べてみる
-            $user = Auth::user();
-            $input = $request['ticket'];
+        public function store(TicketRequest $request, Ticket $ticket,User $user){
+            $input = $request->validate['ticket'];
             $ticket->fill($input)->save();
+            
             $tickets = $ticket->where('status',0)->get();
             $dones = $ticket->where('status',1)->get();
+            
+            $user = Auth::user();
             $user_point = $user->point;
             $ticket_point = $ticket->point;
+            
             return view('tickets/index')->with(['user'=> $user,'tickets' => $tickets,'dones'=>$dones,
-        'user_point'=> $user_point,'ticket_point'=>$ticket_point]);   
+                        'user_point'=> $user_point,'ticket_point'=>$ticket_point]);   
             
         }
         public function edit(Ticket $ticket){

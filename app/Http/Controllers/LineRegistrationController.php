@@ -35,8 +35,15 @@ class LineRegistrationController extends Controller
             // メッセージ送信
             $response = $bot->pushMessage($userId, $textMessageBuilder);
         }
+        
+        return view(タイムライン);
  
     }
+    /*改善点
+    ・バリデーション(空欄で送信したとき)
+    ・タイムラインのユーザ名表示をリレーションでできるようにする
+    ・チケット追加リンクをサイドバーに追加
+    */
     
     //文字列を送られてきたときの処理
     public function webhook(Request $request) {

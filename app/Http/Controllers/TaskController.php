@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+use App\Http\Requests\TaskRequest; 
 use App\Models\Task;
 use App\Models\User;
 use App\Models\TaskUser;
@@ -33,13 +33,16 @@ class TaskController extends Controller
             return view('tasks/show')->with(['task'=>$task]);
         }
         
-        public function store(Request $request, Task $task){
+        public function store(TaskRequest $request, Task $task){
             
-            $input = $request['task'];
+            $input = $request->validate(['task']);
+        
             $user = Auth::user();
             $input['add_user']=$user->name;
             $task->fill($input)->save();
             return redirect('/');
+            
+            
             
         }
         public function edit(Task $task){

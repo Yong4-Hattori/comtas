@@ -5,8 +5,22 @@
         <meta charset="utf-8">
         <title>チケット追加</title>
     </head>
+    
     <body>
         <h2>チケットを追加する</h2>
+        
+        <!--バリデーションエラー表示--> 
+      @if ($errors->any())
+	       <div class="alert alert-danger" style="color:red">
+	        <ul>
+	            @foreach ($errors->all() as $error)
+	                <li>{{ $error }}</li>
+	            @endforeach
+	        </ul>
+	        </div>
+	  @endif
+        
+        
         <form action="/tickets" method="POST">
             @csrf
             <div class="ticket_title">
