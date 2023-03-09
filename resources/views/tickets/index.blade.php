@@ -1,22 +1,11 @@
-<!--
-<!DOCTYPE html>
-    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-        <head>
-            <meta charset="utf-8">
-            <title>ホーム</title>
-            <link rel="stylesheet" href="/public/createTask.css">
-            
-            <!-- Fonts -->
-           <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        </head>
-        -->
+
         <x-app-layout>
             <!--所有ポイント-->
             
             
             <div class = 'user_point'>
                 
-            <p> あなたは{{$user_point}}  ポイント所有しています。</p><br>
+            <p> あなたは {{$user_point}}  ポイント所有しています。</p><br>
         </div>
         <body>
             
@@ -84,7 +73,7 @@
             
 
             function useTicket(ticket_point,user_point,id){
-               if(ticket_point >= user_point){
+               if(ticket_point > user_point){
                     alert('ポイントが不足しています!')
                 }else{
                      document.getElementById(`form_${id}/updateStatus`).submit();

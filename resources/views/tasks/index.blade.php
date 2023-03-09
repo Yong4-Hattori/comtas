@@ -16,7 +16,6 @@
     <!--タスク一覧-->
         <p class="text-3xl font-bold">タスク一覧</p><br>
         <div class='tasks'>
-            <a href = '/tasks/create'>タスクを追加する</a>
             @foreach ($tasks as $task)
                 <div class='tasks'>
                     <h2 class='title'>
@@ -24,7 +23,8 @@
                     </h2>
                     <div class="body" > <p class='body '>{{ $task->body }}</p></div>
                     <div class="point" > <p class='point'>{{$task->point}}ポイント</p></div>
-                    <!--タスクを完了する-->
+                
+                   <!--タスクを完了する-->
                     <form action="/tasks/{{ $task->id }}" id="form_{{ $task->id }}/updateStatus" method="post">
                         @csrf
                         @method('PUT')
@@ -38,8 +38,9 @@
                     <form action="/tasks/{{ $task->id }}" id="form_{{ $task->id }}" method="post">
                         @csrf
                         @method('DELETE')
-                         <button class="px-2 py-1 text-red-500 border border-red-500 font-semibold rounded hover:bg-gray-100"type="button" onclick="deleteTask({{ $task->id }})">削除</button>
+                        <button class="px-2 py-1 text-red-500 border border-red-500 font-semibold rounded hover:bg-gray-100" type="button" onclick="deleteTask({{ $task->id }})">削除</button>
                     </form>
+                    
                 </div>
                 <br>
             @endforeach

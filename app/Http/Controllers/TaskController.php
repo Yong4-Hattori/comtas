@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Task;
 use App\Http\Requests\TaskRequest; 
@@ -48,7 +48,7 @@ class TaskController extends Controller
             return view('tasks/edit')->with(['task' => $task]);
         }
             
-        public function update(TaskRequest $request, Task $task, User $user,TaskUser $task_user){
+        public function update(Request $request, Task $task, User $user,TaskUser $task_user){
             //dd($request->status); //status確認用
             
             //「編集する」ボタンをおしたとき
@@ -57,6 +57,7 @@ class TaskController extends Controller
                 $task->fill($input_task)->save();
                 
             } else {
+                
                  //「完了」ボタンを押したとき
                 $user = Auth::user();
                 $task->user_id = $user->id;
@@ -65,13 +66,12 @@ class TaskController extends Controller
                 $identity->point = $task->point;
                 $identity->save();
                 $task->done_user = $user->name;
-                 // = Task::find($id);
-                 //モデル->カラム名 = 値 で、データを割り当てる
+   
+   
                  $task->status = 1; //1:完了、0:未完了
-    
+
                  //データベースに保存
                  $task->save();
-
                  
             }
             $tasks = $task->where('status',0)->get();
