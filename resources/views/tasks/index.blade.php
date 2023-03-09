@@ -1,14 +1,4 @@
-<!--<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>ホーム</title>
-        <link rel="stylesheet" href="/public/createTask.css">
-        
-        <!-- Fonts 
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    </head>
-    -->
+
 
 <x-app-layout>
     <body>
@@ -70,7 +60,7 @@
         
     </body>
     <script>
-        function deleteTask(id){
+        function deleteTicket(id){
             'use strict'
             
             if(confirm ('削除すると復元できません \n本当に削除しますか？'))
