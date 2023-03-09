@@ -21,13 +21,13 @@
         <form action="/tasks" method="POST">
             @csrf
             <div class="task_title">
-                <input type="text" name="task[title]" placeholder="タイトル" value="{{ old('post.title') }}"/><br>
-                <input type="number" name="task[point]" placeholder="ポイント 例: 100" value="{{ old('post.title') }}"/>
+                <input type="text" name="task[title]" placeholder="タイトル" value="{{ old('task.title') }}"/><br>
+                <input type="number" name="task[point]" placeholder="ポイント 例: 100" value="{{ old('task.point') }}"/>
                 <input type="hidden" name="task[user_id]" value="{{Auth::id()}}" />
             </div>
             
             <div class="task_body">
-                <textarea name="task[body]" placeholder="詳細"  value="{{ old('post.title') }}"></textarea>
+                <textarea name="task[body]" placeholder="詳細"  value="{{ old('task.body') }}"></textarea>
             </div>
             <input type="submit" value="store"/>
         </form>

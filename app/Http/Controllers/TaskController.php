@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Models\Task;
+
 use App\Models\User;
+use App\Models\Task;
+use App\Http\Requests\TaskRequest; 
 use App\Models\TaskUser;
 use Illuminate\Database\Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,8 +34,9 @@ class TaskController extends Controller
             return view('tasks/show')->with(['task'=>$task]);
         }
         
-        public function store(Request $request, Task $task){
+        public function store(TaskRequest $request, Task $task){
             
+
             $input = $request['task'];
             $user = Auth::user();
             $input['add_user']=$user->name;
@@ -46,7 +48,7 @@ class TaskController extends Controller
             return view('tasks/edit')->with(['task' => $task]);
         }
             
-        public function update(Request $request, Task $task, User $user,TaskUser $task_user){
+        public function update(TaskRequest $request, Task $task, User $user,TaskUser $task_user){
             //dd($request->status); //status確認用
             
             //「編集する」ボタンをおしたとき

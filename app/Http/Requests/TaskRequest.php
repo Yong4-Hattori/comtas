@@ -12,7 +12,13 @@ class TaskRequest extends FormRequest
      *
      * @return bool
      */
-
+    public function rules (){
+        
+        return [
+            'task.title' => 'required|string|max:100',
+            'task.point'=> 'required|integer',
+            'task.body' => 'required|string|max:300'];
+    }
 
 
     /**
