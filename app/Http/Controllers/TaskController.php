@@ -88,6 +88,12 @@ class TaskController extends Controller
             return redirect('/');
         }
         
+        public function lineAccount(Task $task,User $user)
+    {
+
+        return view('tasks/lineAccount');
+    }
+        
 
         
         
