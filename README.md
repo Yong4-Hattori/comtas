@@ -25,11 +25,14 @@
     ・PHP
     ・HTML
     ・CSS
-    ・ JavaScript
+    ・JavaScript
 
 * フレームワーク
-    ・ Laravel
-    ・ Breeze
+    ・Laravel
+    ・Breeze
+* API
+    ・LINE Messaging API
+
 
 ## 工夫点
 
