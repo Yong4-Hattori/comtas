@@ -9,7 +9,7 @@
             @foreach ($tasks as $task)
                 <div class='tasks'>
                     <h2 class='title'>
-                    <div class="title"> <a href="/tasks/{{ $task->id }}">{{ $task->title }}</a></div>
+                    <div class="text-xl" "underline decoration-slate-50"> <a href="/tasks/{{ $task->id }}">{{ $task->title }}</a></div>
                     </h2>
                     <div class="body" > <p class='body '>{{ $task->body }}</p></div>
                     <div class="point" > <p class='point'>{{$task->point}}ポイント</p></div>
@@ -42,7 +42,7 @@
             @foreach ($dones as $done)
                 <div class='dones'>
                     <h2 class='font-lg'>
-                    <a href="/tasks/{{ $done->id }}">{{ $done->title }}</a>
+                    <a class ="text-xl" "underline decoration-slate-50" href="/tasks/{{ $done->id }}">{{ $done->title }}</a>
                     </h2>
                     <p class='font-base'>{{ $done->body }}</p>
                     <form action="/tasks/{{ $done->id }}" id="form_{{ $done->id }}" method="post">

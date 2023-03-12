@@ -14,9 +14,7 @@ class TimelineController extends Controller
 {
         public function index (Task $task,TaskUser $task_user)
     {
-        $tasks = $task->abc();
-
-        //完了したユーザーの名前をどうやって渡せばよいかわからない
+        $tasks = $task->setUser();
         
         return view('timelines/index')->with(['tasks' => $tasks]);
     }

@@ -24,7 +24,8 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function saveUser(){
+    //タイムラインでユーザ名を表示
+    public function setUser(){
         return $this::with('user')->orderBy('updated_at', 'DESC')->get();
     }
     

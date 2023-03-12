@@ -35,46 +35,22 @@ class LineRegistrationController extends Controller
             // メッセージ送信
             $response = $bot->pushMessage($userId, $textMessageBuilder);
         }
-        
-        return view(タイムライン);
+                    
+        $tasks = $task->setUser();
+        return view('timelines/index')->with(['tasks' => $tasks]);
+    
  
     }
-    /*改善点
-    ・バリデーション(空欄で送信したとき)
-    ・タイムラインのユーザ名表示をリレーションでできるようにする
-    ・チケット追加リンクをサイドバーに追加
-    */
     
     //文字列を送られてきたときの処理
     public function webhook(Request $request) {
-            /*$http_client = new CurlHTTPClient(config('services.line.channel_token'));    
-            $bot = new LINEBot($http_client, ['channelSecret' => config('services.line.messenger_secret')]);
-            $events = $bot->parseEventRequest($request_body, $signature);
-            
-            foreach ($events as $event) {
-                $userId = $event->getEventSourceId();
-                $reply_token = $event->getReplyToken();
-    
-                // フォロー解除イベントの場合：動作しているかわからない、必要なければ消したい
-                if ($event instanceof UnfollowEvent) {
-                    // line_usersテーブルからデータを削除する
-                    $line_user = LineUser::findByLineId($userId);
-                    if (!empty($line_user) && $line_user instanceof LineUser) {
-                        $line_user->delete();
-                        }
-                    }
-                }*/
 
-         // LINEから送られた内容を$inputsに代入
         $inputs=$request->all();
  
-        // そこからtypeをとりだし、$message_typeに代入
         $message_type=$inputs['events'][0]['type'];
- 
-        // メッセージが送られた場合、$message_typeは'message'となる。その場合処理実行。
+
         if($message_type=='message') {
-            
-            // replyTokenを取得
+        
             $reply_token=$inputs['events'][0]['replyToken'];
             
             $http_client = new CurlHTTPClient(config('services.line.channel_token'));    
@@ -106,5 +82,5 @@ class LineRegistrationController extends Controller
             return 'ok';
         }
     }
-    
 }
+    
