@@ -1,5 +1,5 @@
         <x-app-layout>
-            <p class = "text-xl flex justify-center items-center" >タイムライン</h3><br><br>
+            <p class="text-3xl font-bold">タイムライン</p><br>
                 @foreach ($tasks as $task)
 
                     @if ($task->status == 0)

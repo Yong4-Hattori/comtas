@@ -14,8 +14,11 @@ use App\Models\Task;
 
 class LineRegistrationController extends Controller
 {
+    
+
     // メッセージ送信用
- public function message(Task $task) {
+    
+    public function message(Task $task) {
  
         // LINEBOTSDKの設定
         $http_client = new CurlHTTPClient(config('services.line.channel_token'));

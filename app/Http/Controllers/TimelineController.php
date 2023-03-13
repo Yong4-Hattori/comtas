@@ -18,4 +18,10 @@ class TimelineController extends Controller
         
         return view('timelines/index')->with(['tasks' => $tasks]);
     }
+    
+        public function showAccount() {
+        return view('timelines/lineAccount');
+    }
+    
+    
 }

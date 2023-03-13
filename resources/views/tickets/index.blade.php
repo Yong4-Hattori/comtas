@@ -10,17 +10,16 @@
         <body>
             
         <!--チケット一覧-->
-            <p class="text-3xl font-bold">チケット一覧</p>
-            <div class='tickets'>
+            <p class="text-3xl font-bold">チケット一覧</p><br>
                 @foreach ($tickets as $ticket)
-                    <div class='tickets'>
                         <h2 class='text-lg font-bold'>
-                        <a href="/tickets/{{ $ticket->id }}">{{ $ticket->title }}</a>
+                        <a class= "text-xl"  href="/tickets/{{ $ticket->id }}">{{ $ticket->title }}</a>
                         </h2>
                         <p class='ticket_body'>{{ $ticket->body }}</p>
                         <p class='point'>{{$ticket->point}}ポイント</p>
                         
                         <!--チケットを使用する-->
+                    <div class="flex flex-row">
                         <form action="/tickets/{{ $ticket->id }}" id="form_{{ $ticket->id }}/updateStatus" method="post">
                         @csrf
                         @method('PUT')
@@ -35,11 +34,9 @@
                             @method('DELETE')
                             <button class='px-2 py-1 text-gray-500 border border-gray-500 font-semibold rounded hover:bg-gray-100' type="button" onclick="deleteTicket({{ $ticket->id }})">削除</button>
                         </form>
-                    </div>
-                    <br>
+                    </div><br>
                 @endforeach
-            </div>
-            <br>
+
             
         <!--使用済チケット一覧-->
             <div class='dones'>

@@ -37,7 +37,7 @@ Route::controller(TicketController::class)->middleware(['auth'])->group(function
 
 Route::controller(TimelineController::class)->middleware(['auth'])->group(function(){
     Route::get('/timelines','index')->name('index');
-    
+    Route::get('/timelines/lineAccount','showAccount')->name('showAccount');
     
 });
 
@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
 Route::post('/line/webhook', [LineRegistrationController::class,'webhook'])->name('line.webhook');
 // LINE メッセージ送信用
 Route::get('/line/message/{task}', [LineRegistrationController::class,'message']);
+
 
 
 require __DIR__.'/auth.php';
