@@ -11,7 +11,7 @@
                     
                     <h2 class='title'>
                     <a class= "text-xl" href="/tasks/{{ $task->id }}">{{ $task->title }}</a>
-                    <p class = "text-sm">{{$task->updated_at}}</p><br>
+                    <p class = "text-sm">{{$task->updated_at}}</p>
                     </h2>
                     <div class="body" > <p class='body '>{{ $task->body }}</p></div>
                     <div class="point" > <p class='point'>{{$task->point}}ポイント</p></div>
