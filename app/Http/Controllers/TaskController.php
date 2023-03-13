@@ -48,7 +48,7 @@ class TaskController extends Controller
             return view('tasks/edit')->with(['task' => $task]);
         }
             
-        public function update(Request $request, Task $task, User $user,TaskUser $task_user){
+        public function update(TaskRequest $request, Task $task, User $user,TaskUser $task_user){
             //dd($request->status); //status確認用
             
             //「編集する」ボタンをおしたとき

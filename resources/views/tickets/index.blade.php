@@ -3,18 +3,15 @@
             <!--所有ポイント-->
             
             
-            <div class = 'user_point'>
-                
+         <div class = 'user_point'>
             <p> あなたは {{$user_point}}  ポイント所有しています。</p><br>
         </div>
-        <body>
             
         <!--チケット一覧-->
             <p class="text-3xl font-bold">チケット一覧</p><br>
                 @foreach ($tickets as $ticket)
-                        <h2 class='text-lg font-bold'>
+                        
                         <a class= "text-xl"  href="/tickets/{{ $ticket->id }}">{{ $ticket->title }}</a>
-                        </h2>
                         <p class='ticket_body'>{{ $ticket->body }}</p>
                         <p class='point'>{{$ticket->point}}ポイント</p>
                         
@@ -24,7 +21,7 @@
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="status" value="{{$ticket->status}}">
-                        <button class='px-2 py-1 text-blue-500 border border-blue-500 font-semibold rounded hover:bg-blue-100' type="button" onclick="useTicket({{ $ticket->point}},{{$user->point}},{{$ticket->id }})">使用する</button>
+                        <button class='mx-2 my-2 px-1 py-1 text-blue-500 border border-blue-500 font-semibold rounded hover:bg-blue-100' type="button" onclick="useTicket({{ $ticket->point}},{{$user->point}},{{$ticket->id }})">使用する</button>
                         
                          </form>
                          
@@ -32,9 +29,9 @@
                         <form action="/tickets/{{ $ticket->id }}" id="form_{{ $ticket->id }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button class='px-2 py-1 text-gray-500 border border-gray-500 font-semibold rounded hover:bg-gray-100' type="button" onclick="deleteTicket({{ $ticket->id }})">削除</button>
+                            <button class='mx-2 px-1 py-1 text-gray-500 border border-gray-500 font-semibold rounded hover:bg-gray-100' type="button" onclick="deleteTicket({{ $ticket->id }})">削除</button>
                         </form>
-                    </div><br>
+                    </div><br><br>
                 @endforeach
 
             
@@ -57,7 +54,6 @@
             </div><br>
         </x-app-layout>
             
-        </body>
         <script>
         const user_point = @json($user_point);
         const ticket_point = @json($ticket_point);
@@ -77,5 +73,5 @@
                 }
             }
         </script>
-    </html>
+
 

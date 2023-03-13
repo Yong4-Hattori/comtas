@@ -19,4 +19,11 @@ class Ticket extends Model
     'body',
     
 ];
+    public function rules()
+    {
+        return [
+            'task.title' => 'required|string|max:100',
+            'task.body' => 'required|string|max:500',
+        ];
+    }
 }

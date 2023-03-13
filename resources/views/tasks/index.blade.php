@@ -4,14 +4,14 @@
     <body>
         
     <!--タスク一覧-->
-        <p class="text-3xl font-bold">タスク一覧</p><br>
+        <h1 name="tasl_index" class="text-3xl font-bold">タスク一覧</p><br>
         <div class='tasks'>
             @foreach ($tasks as $task)
                 <div class='tasks'>
                     
                     <h2 class='title'>
                     <a class= "text-xl" href="/tasks/{{ $task->id }}">{{ $task->title }}</a>
-                    <p class = "text-sm">{{$task->updated_at}}</p><br>
+                    <p class = "text-sm">{{$task->updated_at}}</p>
                     </h2>
                     <div class="body" > <p class='body '>{{ $task->body }}</p></div>
                     <div class="point" > <p class='point'>{{$task->point}}ポイント</p></div>

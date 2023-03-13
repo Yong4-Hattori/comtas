@@ -46,14 +46,13 @@ class TicketController extends Controller
                         'user_point'=> $user_point,'ticket_point'=>$ticket_point]);   
             
         }
-        public function edit(Ticket $ticket){
+        public function edit (Ticket $ticket){
+
             return view('tickets/edit')->with(['ticket' => $ticket]);
         }
             
-        public function update(Request $request, Ticket $ticket){
-            //dd($request->status); //status確認用
-            
-            //「編集する」ボタンをおしたとき
+        public function update(TicketRequest $request, Ticket $ticket,User $user){
+
             if ($request->status === null) {
                 $input_post = $request['ticket'];
                 $ticket->fill($input_post)->save();

@@ -20,12 +20,11 @@ class Task extends Model
     'done_user',
     ];
     
-    public function user() {
+    public function setUser() {
         return $this->belongsTo(User::class);
     }
     
-    //タイムラインでユーザ名を表示
-    public function setUser(){
+    public function saveUser(){
         return $this::with('user')->orderBy('updated_at', 'DESC')->get();
     }
     

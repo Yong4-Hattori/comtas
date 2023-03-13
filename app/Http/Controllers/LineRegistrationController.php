@@ -14,11 +14,8 @@ use App\Models\Task;
 
 class LineRegistrationController extends Controller
 {
-    
-
     // メッセージ送信用
-    
-    public function message(Task $task) {
+ public function message(Task $task) {
  
         // LINEBOTSDKの設定
         $http_client = new CurlHTTPClient(config('services.line.channel_token'));
@@ -38,22 +35,25 @@ class LineRegistrationController extends Controller
             // メッセージ送信
             $response = $bot->pushMessage($userId, $textMessageBuilder);
         }
-                    
-        $tasks = $task->setUser();
-        return view('timelines/index')->with(['tasks' => $tasks]);
-    
+        
+        return view(タイムライン);
  
     }
-    
+
     //文字列を送られてきたときの処理
     public function webhook(Request $request) {
 
+
+         // LINEから送られた内容を$inputsに代入
         $inputs=$request->all();
  
+        // そこからtypeをとりだし、$message_typeに代入
         $message_type=$inputs['events'][0]['type'];
-
+ 
+        // メッセージが送られた場合、$message_typeは'message'となる。その場合処理実行。
         if($message_type=='message') {
-        
+            
+            // replyTokenを取得
             $reply_token=$inputs['events'][0]['replyToken'];
             
             $http_client = new CurlHTTPClient(config('services.line.channel_token'));    
@@ -85,5 +85,5 @@ class LineRegistrationController extends Controller
             return 'ok';
         }
     }
-}
     
+}

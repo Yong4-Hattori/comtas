@@ -5,8 +5,8 @@
             <div class="ticket_body"> 詳細：{{ $ticket->body }}</div>
           
             <br>
-            <div class="edit"><a href="/tickets/{{ $ticket->id }}/edit">編集</a></div>
-            <a href="/">戻る</a>
+            <a href="/tickets/{{ $ticket->id }}/edit">編集</a>
+            <a href="/tickets">戻る</a>
             
             </div>
         </body>
